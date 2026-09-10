@@ -17,6 +17,6 @@ abstract final class AppSpace {
   /// Card interior padding.
   static const double card = 16;
 
-  /// Bottom inset so content clears floating TabPill.
-  static const double tabClearance = 150;
+  /// Bottom inset so content clears floating TabPill (pill + gap + home indicator).
+  static const double tabClearance = 190;
 }
