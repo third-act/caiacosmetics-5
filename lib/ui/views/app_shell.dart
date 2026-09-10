@@ -93,21 +93,37 @@ class _AppShellState extends State<AppShell> {
               ),
             ),
           ),
-          body: IndexedStack(
-            index: _vm.tabIndex,
-            children: [
-              HemView(
-                onStartScan: _pushResultat,
-                onProductTap: _pushProduct,
-                onGoToHudscan: () => _vm.selectTab(1),
-              ),
-              HudscanView(
-                onStartScan: _pushResultat,
-                onViewResult: _pushResultat,
-              ),
-              ForDigView(onProductTap: _pushProduct),
-              const MinaView(),
-            ],
+          body: Builder(
+            builder: (context) {
+              final mq = MediaQuery.of(context);
+              final clearance = AppSpace.tabClearance;
+              return MediaQuery(
+                data: mq.copyWith(
+                  padding: mq.padding.copyWith(
+                    bottom: mq.padding.bottom + clearance,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: clearance),
+                  child: IndexedStack(
+                    index: _vm.tabIndex,
+                    children: [
+                      HemView(
+                        onStartScan: _pushResultat,
+                        onProductTap: _pushProduct,
+                        onGoToHudscan: () => _vm.selectTab(1),
+                      ),
+                      HudscanView(
+                        onStartScan: _pushResultat,
+                        onViewResult: _pushResultat,
+                      ),
+                      ForDigView(onProductTap: _pushProduct),
+                      const MinaView(),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
           bottomNavigationBar: TabPill(
             currentIndex: _vm.tabIndex,
