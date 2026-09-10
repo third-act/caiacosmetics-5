@@ -29,7 +29,7 @@ class MinaView extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpace.section),
                 _ProfileHeader(),
-                const SizedBox(height: AppSpace.section),
+                const SizedBox(height: AppSpace.xxxl + AppSpace.lg),
                 Text(
                   'Favoriter',
                   style: Theme.of(context).textTheme.titleLarge,

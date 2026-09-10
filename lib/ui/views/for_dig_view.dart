@@ -139,15 +139,21 @@ class _RecommendationCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.category.toUpperCase(),
+                  product.category,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 11,
-                        letterSpacing: 0.6,
+                        letterSpacing: 0.2,
                       ),
                 ),
                 const SizedBox(height: AppSpace.xs),
-                Text(product.name,
-                    style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  product.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
                 const SizedBox(height: AppSpace.sm),
                 Text(
                   product.matchReason,
