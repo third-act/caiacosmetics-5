@@ -18,5 +18,5 @@ abstract final class AppSpace {
   static const double card = 16;
 
   /// Bottom inset so content clears floating TabPill.
-  static const double tabClearance = 120;
+  static const double tabClearance = 150;
 }
