@@ -2,7 +2,7 @@
 
 Draft for Demo QA port. Research date: **10 September 2026**. English (skills). App UI: **Swedish**.
 
-**Build gate:** CLOSED — waiting Demo QA **kjør/stopp** on audience + 1–2 job flows.
+**Build gate:** OPEN — Demo QA **kjør** 10 Sep 2026.
 
 **New project (full test).** Slug `caiacosmetics-5`, repo `third-act/caiacosmetics-5`. Do **not** reuse `caiacosmetics` / `caiacosmetics-2` / `caiacosmetics-3` code, seed, photos, or URLs. QA: https://www.thirdact.no/demo/caiacosmetics-5. Customer: https://www.thirdact.se/caiacosmetics-5 (form/market **SE** → `.se`). Skills pin: `ac5055d`. Track: **Demo Web / Composer** (not Demo Web Opus).
 
