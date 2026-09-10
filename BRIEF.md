@@ -4,7 +4,7 @@ Draft for Demo QA port. Research date: **10 September 2026**. English (skills). 
 
 **Build gate:** OPEN — Demo QA **kjør** 10 Sep 2026.
 
-**New project (full test).** Slug `caiacosmetics-5`, repo `third-act/caiacosmetics-5`. Do **not** reuse `caiacosmetics` / `caiacosmetics-2` / `caiacosmetics-3` code, seed, photos, or URLs. QA: https://www.thirdact.no/demo/caiacosmetics-5. Customer: https://www.thirdact.se/caiacosmetics-5 (form/market **SE** → `.se`). Skills pin: `ac5055d`. Track: **Demo Web / Composer** (not Demo Web Opus).
+**New project (full test).** Slug `caiacosmetics-5`, repo `third-act/caiacosmetics-5`. Do **not** reuse `caiacosmetics` / `caiacosmetics-2` / `caiacosmetics-3` code, seed, photos, or URLs. QA: https://www.thirdact.no/demo/caiacosmetics-5. Customer: https://www.thirdact.se/caiacosmetics-5 (form/market **SE** → `.se`). Skills pin: `ac5055d`. Track: **design-bakeoff / Cursor-only** (Composer 2.5). Soft depth. Bar: caiacosmetics-2. Splash + 3–5 tab roots; functions need not work. No Opus §6 / UI-review.
 
 Do **not** contact the brand. Never put `info@caiacosmetics.com` in the UI. Form To `pal@thirdact.se` — never in UI.
 
@@ -69,15 +69,14 @@ Favoritter / profil = shallow shell (Scout screen list). Handlekurv shallow OK.
 
 ---
 
-## 6. Features
+## 6. Features (design-bakeoff — thin)
 
-**§0 served (verbatim):**
+**§0 served visually (verbatim theme):** face scan → resultat → rekommendationer look.
 
-> **Man ska kunna scanna ansiktet och få rekommendationer på vilka produkter som passar min hud**
+**Bakeoff tabs (4):** Hem · Hudscan · För dig · Mina  
+Signature mock: Hudscan / resultat surface (static OK). Product-detalj as optional push mock. Favoritter+profil under Mina (shallow). Functions need not work; screens must look finished.
 
-→ **F1** = *scanna ansiktet*. **F2** = *rekommendationer på vilka produkter*. **F3** = *som passar min hud*.
-
-**§6 owned by Cloud Agent `claude-opus-5` + `product/SKILL.md`.** Do not fill the three / signature here. After Demo QA opens the build gate, Opus writes 10–15 research, builds three, signature among those three.
+**§6e art:** Soft depth LOCKED — cream `#FFFCF7`, blush `#E0CCC7`, ink `#333333`. One accent-owned glow/stat surface (CAIA bar).
 
 ---
 
