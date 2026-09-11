@@ -24,6 +24,7 @@ class HudscanView extends StatelessWidget {
           child: Padding(
             padding: AppTheme.tabContentPadding().copyWith(
               top: AppSpace.section,
+              bottom: AppSpace.tabClearance,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,6 +105,7 @@ class HudscanView extends StatelessWidget {
   }
 }
 
+/// Fixed-aspect portrait plate — image fits via BoxFit.cover; page scroll only.
 class _ScanSurface extends StatelessWidget {
   const _ScanSurface({required this.onStartScan});
 
@@ -111,76 +113,98 @@ class _ScanSurface extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 320,
-      decoration: BoxDecoration(
-        color: AppColors.softPink,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: AppShadows.card,
-      ),
-      child: Stack(
-        children: [
-          Center(
-            child: Container(
-              width: 200,
-              height: 260,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.blush,
-                  width: 2,
-                ),
-                borderRadius: BorderRadius.circular(100),
+    return AspectRatio(
+      aspectRatio: 3 / 4,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.softPink,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: AppShadows.card,
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Image.asset(
+                'assets/images/portrait_scan.jpg',
+                fit: BoxFit.cover,
+                alignment: const Alignment(0.15, -0.3),
               ),
-              child: ClipOval(
-                child: Image.asset(
-                  'assets/images/hero_scan.jpg',
-                  fit: BoxFit.cover,
-                  opacity: const AlwaysStoppedAnimation(0.6),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: AppSpace.xl,
-            child: Center(
-              child: GestureDetector(
-                onTap: onStartScan,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpace.xxl,
-                    vertical: AppSpace.lg,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.ink,
-                    borderRadius: BorderRadius.circular(28),
-                    boxShadow: AppShadows.card,
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(Icons.face_retouching_natural,
-                          color: AppColors.cream, size: 20),
-                      const SizedBox(width: AppSpace.sm),
-                      Text(
-                        'Starta ansiktsscan',
-                        style:
-                            Theme.of(context).textTheme.labelLarge?.copyWith(
+              CustomPaint(painter: _OvalFramePainter()),
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: AppSpace.xl,
+                child: Center(
+                  child: GestureDetector(
+                    onTap: onStartScan,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSpace.xxl,
+                        vertical: AppSpace.lg,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.ink,
+                        borderRadius: BorderRadius.circular(28),
+                        boxShadow: AppShadows.card,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.face_retouching_natural,
+                              color: AppColors.cream, size: 20),
+                          const SizedBox(width: AppSpace.sm),
+                          Text(
+                            'Starta ansiktsscan',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
                                   color: AppColors.cream,
                                 ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
+}
+
+class _OvalFramePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final oval = Rect.fromCenter(
+      center: Offset(size.width / 2, size.height * 0.42),
+      width: size.width * 0.55,
+      height: size.height * 0.52,
+    );
+
+    final full = Path()..addRect(Offset.zero & size);
+    final window = Path()..addOval(oval);
+    canvas.drawPath(
+      Path.combine(PathOperation.difference, full, window),
+      Paint()..color = AppColors.ink.withValues(alpha: 0.35),
+    );
+
+    canvas.drawOval(
+      oval,
+      Paint()
+        ..color = AppColors.blush
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
 class _StepRow extends StatelessWidget {
