@@ -17,6 +17,7 @@ class MinaView extends StatelessWidget {
           child: Padding(
             padding: AppTheme.tabContentPadding().copyWith(
               top: AppSpace.section,
+              bottom: AppSpace.tabClearance,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,8 +29,13 @@ class MinaView extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const SizedBox(height: AppSpace.section),
+                Text(
+                  'Konto',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: AppSpace.lg),
                 _ProfileHeader(),
-                const SizedBox(height: AppSpace.xxxl + AppSpace.lg),
+                const SizedBox(height: AppSpace.section),
                 Text(
                   'Favoriter',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -75,7 +81,6 @@ class MinaView extends StatelessWidget {
                   icon: Icons.help_outline,
                   label: 'Hjälp',
                 ),
-                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),

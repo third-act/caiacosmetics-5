@@ -10,6 +10,7 @@ abstract final class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.cream,
+      canvasColor: AppColors.cream,
       colorScheme: ColorScheme.light(
         surface: AppColors.cream,
         primary: AppColors.blush,
@@ -89,9 +90,7 @@ abstract final class AppTheme {
         ),
       );
 
-  static EdgeInsets tabContentPadding() => const EdgeInsets.only(
-        left: AppSpace.screen,
-        right: AppSpace.screen,
-        bottom: AppSpace.tabClearance,
+  static EdgeInsets tabContentPadding() => const EdgeInsets.symmetric(
+        horizontal: AppSpace.screen,
       );
 }

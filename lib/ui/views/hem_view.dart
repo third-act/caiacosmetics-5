@@ -32,6 +32,7 @@ class HemView extends StatelessWidget {
           child: Padding(
             padding: AppTheme.tabContentPadding().copyWith(
               top: AppSpace.section,
+              bottom: AppSpace.tabClearance,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,18 +57,18 @@ class HemView extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: AppSpace.lg),
-                SizedBox(
-                  height: 196,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: picks.length,
-                    separatorBuilder: (_, _) =>
-                        const SizedBox(width: AppSpace.md),
-                    itemBuilder: (context, i) => _PickCard(
-                      product: picks[i],
-                      onTap: () => onProductTap(picks[i]),
-                    ),
-                  ),
+                Row(
+                  children: [
+                    for (var i = 0; i < picks.length; i++) ...[
+                      if (i > 0) const SizedBox(width: AppSpace.md),
+                      Expanded(
+                        child: _PickCard(
+                          product: picks[i],
+                          onTap: () => onProductTap(picks[i]),
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
                 const SizedBox(height: AppSpace.section),
                 Text(
@@ -84,7 +85,6 @@ class HemView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),
@@ -173,46 +173,43 @@ class _PickCard extends StatelessWidget {
     return PressableCard(
       onTap: onTap,
       padding: EdgeInsets.zero,
-      child: SizedBox(
-        width: 148,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(16),
+            ),
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Image.asset(
+                product.imageAsset,
+                fit: BoxFit.cover,
               ),
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: Image.asset(
-                  product.imageAsset,
-                  fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(AppSpace.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-              ),
+                const SizedBox(height: AppSpace.xs),
+                Text(
+                  '${product.priceKr} KR',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(AppSpace.md),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    product.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: AppSpace.xs),
-                  Text(
-                    '${product.priceKr} KR',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

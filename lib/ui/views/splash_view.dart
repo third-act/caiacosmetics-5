@@ -25,15 +25,15 @@ class _SplashViewState extends State<SplashView>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1600),
+      duration: const Duration(milliseconds: 1100),
     );
     _fadeIn = CurvedAnimation(
       parent: _controller,
-      curve: const Interval(0.0, 0.35, curve: Curves.easeOut),
+      curve: const Interval(0.0, 0.3, curve: Curves.easeOut),
     );
     _fadeOut = CurvedAnimation(
       parent: _controller,
-      curve: const Interval(0.65, 1.0, curve: Curves.easeIn),
+      curve: const Interval(0.45, 1.0, curve: Curves.easeIn),
     );
     _controller.forward();
     _controller.addStatusListener((status) {

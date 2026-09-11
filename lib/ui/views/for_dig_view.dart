@@ -25,6 +25,7 @@ class ForDigView extends StatelessWidget {
           child: Padding(
             padding: AppTheme.tabContentPadding().copyWith(
               top: AppSpace.section,
+              bottom: AppSpace.tabClearance,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +53,6 @@ class ForDigView extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),
