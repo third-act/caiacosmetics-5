@@ -52,6 +52,7 @@ class ForDigView extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),

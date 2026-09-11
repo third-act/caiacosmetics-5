@@ -75,6 +75,7 @@ class MinaView extends StatelessWidget {
                   icon: Icons.help_outline,
                   label: 'Hjälp',
                 ),
+                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),

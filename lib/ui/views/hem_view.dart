@@ -22,10 +22,12 @@ class HemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final picks = SeedService.products.take(3).toList();
     final recommended = SeedService.products.take(2).toList();
 
     return CustomScrollView(
       slivers: [
+        SliverToBoxAdapter(child: _HeroBanner()),
         SliverToBoxAdapter(
           child: Padding(
             padding: AppTheme.tabContentPadding().copyWith(
@@ -50,6 +52,25 @@ class HemView extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSpace.section),
                 Text(
+                  'Utvalt för dig',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: AppSpace.lg),
+                SizedBox(
+                  height: 196,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: picks.length,
+                    separatorBuilder: (_, _) =>
+                        const SizedBox(width: AppSpace.md),
+                    itemBuilder: (context, i) => _PickCard(
+                      product: picks[i],
+                      onTap: () => onProductTap(picks[i]),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppSpace.section),
+                Text(
                   'Rekommenderat för dig',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
@@ -63,11 +84,136 @@ class HemView extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: AppSpace.xl),
               ],
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class _HeroBanner extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 240,
+      width: double.infinity,
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/images/hero_hem.jpg',
+            fit: BoxFit.cover,
+            alignment: const Alignment(0.0, -0.15),
+          ),
+          const DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0.0, 0.55, 1.0],
+                colors: [
+                  Color(0x66000000),
+                  Color(0x1A000000),
+                  Color(0xCC000000),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpace.screen,
+              AppSpace.xl,
+              AppSpace.screen,
+              AppSpace.lg,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/images/caia_logo.png',
+                  height: 22,
+                  fit: BoxFit.contain,
+                  color: AppColors.cream,
+                  colorBlendMode: BlendMode.srcIn,
+                ),
+                const Spacer(),
+                Text(
+                  'Glow som passar dig',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        color: AppColors.cream,
+                      ),
+                ),
+                const SizedBox(height: AppSpace.xs),
+                Text(
+                  'Personlig hudvård och makeup',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppColors.cream.withValues(alpha: 0.85),
+                      ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PickCard extends StatelessWidget {
+  const _PickCard({required this.product, required this.onTap});
+
+  final Product product;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return PressableCard(
+      onTap: onTap,
+      padding: EdgeInsets.zero,
+      child: SizedBox(
+        width: 148,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Image.asset(
+                  product.imageAsset,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(AppSpace.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: AppSpace.xs),
+                  Text(
+                    '${product.priceKr} KR',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -106,7 +252,7 @@ class _HeroScanCard extends StatelessWidget {
               right: -20,
               bottom: -10,
               child: Image.asset(
-                'assets/images/hero_scan.jpg',
+                'assets/images/portrait_scan.jpg',
                 width: 180,
                 height: 180,
                 fit: BoxFit.cover,
